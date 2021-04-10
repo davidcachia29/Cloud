@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Allocate Role";
+}
+
+<h1>Allocate Role</h1>
+
+<form method="post" action="/roles/AllocateRole">
+    <select class="form-control" name="role">
+        <option value="DRIVER">Driver</option>
+        <option value="PASSENGER">Passenger</option>
+    </select>
+
+    <input type="submit" value="choose role" class="form-control" />
+</form>
+
