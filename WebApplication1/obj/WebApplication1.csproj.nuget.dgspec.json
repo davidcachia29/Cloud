@@ -43,6 +43,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Google.Cloud.PubSub.V1": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "Google.Cloud.Storage.V1": {
               "target": "Package",
               "version": "[3.4.0, )"

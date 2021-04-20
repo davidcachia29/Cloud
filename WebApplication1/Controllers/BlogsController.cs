@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch 
             {
                 TempData["error"] = $"Blog was not created successfully";
                 return View(b);
