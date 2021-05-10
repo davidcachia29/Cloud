@@ -24,11 +24,11 @@
                         @foreach (Menu m in MyCacheService.GetMenus())
                         {
                             @*@if (User.Identity.Name != null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
-                                </li>
-                            }*@
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
+                </li>
+            }*@
                             @if (User.IsInRole("PASSENGER"))
                             {
                                 if (m.Title.Equals("Order A Cab"))
@@ -37,7 +37,34 @@
                                         <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
                                     </li>
                                 }
+                            }
+                            @if (User.IsInRole("DRIVER"))
+                            {
+                                if (m.Title.Equals("Accept An Order"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
+                                    </li>
 
+                                }
+
+                                if (m.Title.Equals("Driver Settings"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
+                                    </li>
+
+                                }
+                            }
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                if (m.Title.Equals("Accepted Orders"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="@m.URL">@m.Title</a>
+                                    </li>
+
+                                }
                             }
 
                         }
@@ -72,9 +99,11 @@
             &copy; 2021 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

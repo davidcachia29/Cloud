@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WebApplication1.Models.Domain.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassangerName)
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Categories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.accepted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+
+        @foreach (var item in Model)
+        {
+
+
+            if (this.User.IsInRole("BUISNESS"))
+            {
+                if (item.Categories == "Business")
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PassangerName)
+                        </td>                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categories)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.accepted)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Accept Ride", "UpdateAcceptance", new { BookingID = item.BookingID, Accapted = item.accepted })
+                        </td>
+                    </tr>
+                }
+            }
+
+            if (this.User.IsInRole("LUXURY"))
+            {
+                if (item.Categories == "luxury" & item.accepted == false)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PassangerName)
+                        </td>                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categories)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.accepted)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Accept Ride", "UpdateAcceptance", new { BookingID = item.BookingID  , Accapted = item.accepted})
+                        </td>
+                    </tr>
+                }
+            }
+
+            if (this.User.IsInRole("ECONOMY"))
+            {
+                if (item.Categories == "Economy")
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PassangerName)
+                        </td>                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categories)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.accepted)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Accept Ride", "UpdateAcceptance", new { BookingID = item.BookingID, Accapted = item.accepted })
+                        </td>
+                    </tr>
+                }
+            }
+
+        }
+    </tbody>
+</table>

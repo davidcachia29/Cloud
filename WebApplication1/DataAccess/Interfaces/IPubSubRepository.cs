@@ -7,10 +7,10 @@ using WebApplication1.Models.Domain;
 
 namespace WebApplication1.DataAccess.Interfaces
 {
-    interface IPubSubRepository
+    public interface IPubSubRepository
     {
-        void PublishMessage (Blog b, string email ,string classType);
+        void PublishMessage (Booking b, string email ,string classType);
 
-        string PullMessage(Category cat);
+        string PullMessage(Category cat, string driver, string plate, int passAmount);
     }
 }

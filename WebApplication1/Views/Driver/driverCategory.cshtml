@@ -1,0 +1,130 @@
+﻿@model WebApplication1.Models.Domain.Driver
+
+@{
+    ViewData["Title"] = "driverCategory";
+}
+
+<h1>driverCategory</h1>
+
+<h4>Driver</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="driverCategory" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <select class="form-control" name="role">
+                <option value="LUXURY">Luxury</option>
+                <option value="BUISNESS">Business</option>
+                <option value="ECONOMY">Economy</option>
+            </select>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" name="role" />
+            </div>
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="DriverID" class="control-label"></label>
+                <input asp-for="DriverID" class="form-control" />
+                <span asp-validation-for="DriverID" class="text-danger"></span>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="PassangerCapacity" class="control-label"></label>
+                <input asp-for="PassangerCapacity" class="form-control" />
+                <span asp-validation-for="PassangerCapacity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update PassangerCapacity" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="Condition" class="control-label"></label>
+                <input asp-for="Condition" class="form-control" />
+                <span asp-validation-for="Condition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update Condition" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="RegistrationPlate" class="control-label"></label>
+                <input asp-for="RegistrationPlate" class="form-control" />
+                <span asp-validation-for="RegistrationPlate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update RegistrationPlate" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WIFI" /> @Html.DisplayNameFor(model => model.WIFI)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update WIFI" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="AirConditioned" class="control-label"></label>
+                <input asp-for="AirConditioned" class="form-control" />
+                <span asp-validation-for="AirConditioned" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update AirCondition" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FoodDrink" /> @Html.DisplayNameFor(model => model.FoodDrink)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update FoodDrink" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+
+
+            <div class="form-group">
+                <label class="control-label">Upload a File</label>
+                <input type="file" name="logo" class="form-control" />
+            </div>            
+
+            <div class="form-group">
+                <input type="submit" value="Update Image" class="btn btn-primary" name="Button" />
+            </div>
+
+            <br />
+            <br />
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

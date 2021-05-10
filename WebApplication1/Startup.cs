@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Controllers;
 using WebApplication1.Data;
 using WebApplication1.DataAccess.Interfaces;
 using WebApplication1.DataAccess.Repositories;
@@ -29,6 +30,9 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -36,7 +40,8 @@ namespace WebApplication1
             services.AddScoped<IBlogsRepository, BlogsRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICacheRepository, CacheRepository>();
-
+            services.AddScoped<IPubSubRepository, PubSubRepository>();
+            services.AddScoped<IDriverInfo, DriverInfoRepository>();            
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 

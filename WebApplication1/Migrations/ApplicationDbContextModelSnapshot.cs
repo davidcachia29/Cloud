@@ -241,15 +241,59 @@ namespace WebApplication1.Migrations
                     b.Property<string>("Categories")
                         .HasColumnType("text");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("LanEnd")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LanStart")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LonEnd")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LonStart")
                         .HasColumnType("text");
 
                     b.Property<string>("PassangerName")
                         .HasColumnType("text");
 
+                    b.Property<bool>("accepted")
+                        .HasColumnType("boolean");
+
                     b.HasKey("BookingID");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Domain.Driver", b =>
+                {
+                    b.Property<string>("DriverID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<int>("AirConditioned")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Condition")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("FoodDrink")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PassangerCapacity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("RegistrationPlate")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("WIFI")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("DriverID");
+
+                    b.ToTable("DriverInfo");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Domain.Post", b =>

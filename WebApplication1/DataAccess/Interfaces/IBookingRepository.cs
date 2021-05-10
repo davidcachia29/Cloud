@@ -12,6 +12,11 @@ namespace WebApplication1.DataAccess.Interfaces
 
         void GetBooking(int id);
 
+        void getBookingAmount();
+
+        void UpdateAcceptance(int b, bool accepted, string driverId, string driverid, string RegistrationPlate, int PassAmount);
+
         IQueryable<Booking> GetBookings();
+
     }
 }

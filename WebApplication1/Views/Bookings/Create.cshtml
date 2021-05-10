@@ -4,32 +4,213 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Booking</h4>
-<hr />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<style type="text/css">
+    html {
+        height: 100%
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0
+    }
+
+    #map_canvas {
+        height: 100%
+    }
+</style>
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
+</script>
+
+
+
+<script type="text/javascript">
+
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(35.891938357625506, 14.43446158623531);
+        var myLatlng1 = new google.maps.LatLng(35.891938357625506, 14.43446158623531);
+        var myOptions = {
+            zoom: 10,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("gmap"), myOptions);
+        map1 = new google.maps.Map(document.getElementById("gmap1"), myOptions);
+
+        // marker refers to a global variable
+        marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map            
+        });
+        marker1 = new google.maps.Marker({
+            position1: myLatlng1,
+            map1: map1
+        });
+
+        // if center changed then update lat and lon document objects
+        google.maps.event.addListener(map, 'center_changed', function () {
+            var location = map.getCenter();var location = map.getCenter();
+
+            document.getElementById("lat").innerHTML = location.lat();
+            document.getElementById("lon").innerHTML = location.lng();
+            // call function to reposition marker location
+            placeMarker(location);
+        });
+        google.maps.event.addListener(map1, 'center_changed', function () {
+            var location1 = map1.getCenter(); var location = map1.getCenter();
+
+            document.getElementById("lat1").innerHTML = location.lat();
+            document.getElementById("lon1").innerHTML = location.lng();
+            // call function to reposition marker location
+            placeMarker1(location1);
+        });
+
+        // if zoom changed, then update document object with new info
+        google.maps.event.addListener(map, 'zoom_changed', function () {
+            zoomLevel = map.getZoom();
+            document.getElementById("zoom_level").innerHTML = zoomLevel;
+        });
+        google.maps.event.addListener(map1, 'zoom_changed', function () {
+            zoomLevel1 = map1.getZoom();
+            document.getElementById("zoom_level").innerHTML = zoomLevel1;
+        });
+
+        // double click on the marker changes zoom level
+        google.maps.event.addListener(marker, 'dblclick', function () {
+            zoomLevel = map.getZoom() + 1;
+            if (zoomLevel == 20) {
+                zoomLevel = 10;
+            }
+            document.getElementById("zoom_level").innerHTML = zoomLevel;
+            map.setZoom(zoomLevel);
+        });
+        google.maps.event.addListener(marker, 'dblclick', function () {
+            zoomLevel1 = map1.getZoom() + 1;
+            if (zoomLevel1 == 20) {
+                zoomLevel1 = 10;
+            }
+            document.getElementById("zoom_level").innerHTML = zoomLevel;
+            map1.setZoom(zoomLevel1);
+        });
+
+        function placeMarker(location) {
+            var clickedLocation = new google.maps.LatLng(location);
+            marker.setPosition(location);
+        }
+        function placeMarker1(location1) {
+            var clickedLocation1 = new google.maps.LatLng(location1);
+            marker1.setPosition(location1);
+        }
+    }
+    window.onload = function () { initialize() };
+
+
+
+
+ 
+
+    function submitlocation() {
+
+      //  var e = $("#txtEmail").val();
+        debugger;
+        var lat = document.getElementById("lat").innerHTML;
+        var lon = document.getElementById("lon").innerHTML;
+        var lat1 = document.getElementById("lat1").innerHTML;
+        var lon1 = document.getElementById("lon1").innerHTML;
+        var cat = $("#ddlCat").val();
+
+        var jsonData = { lat: lat, lon: lon, cat, cat, lat1: lat1, lon1: lon1};
+
+                    $.ajax({
+                     type: "POST",
+                     url: "/Bookings/Create",
+                     data: jsonData,
+                     success: function (msg) { alert("message received."); }
+                     });
+        
+    }
+       
+
+
+</script>
+<style>
+    div#gmap {
+        width: 80%;
+        height: 500px;
+        border: double;
+    }
+</style>
+<style>
+    div#gmap1 {
+        width: 80%;
+        height: 500px;
+        border: double;
+    }
+</style>
+
+
+<form id="form1" runat="server">
+</form>
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categories" class="control-label"></label>
-                <input asp-for="Categories" class="form-control" />
-                <span asp-validation-for="Categories" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Categories" class="control-label"></label>
+            <select id="ddlCat" asp-for="Categories" class="form-control">
+                <option value="luxury">Luxury</option>
+                <option value="Business">Business</option>
+                <option value="Economy">Economy</option>
+            </select>
+            <span asp-validation-for="Categories" class="text-danger"></span>
+        </div>
+
+        <center>
+            <!-- MAP HOLDER -->
+            <div id="gmap"></div>
+            <!-- REFERENCES -->
+
+            <span id='lat' runat="server" name="lat"></span>
+
+            <span id='lon' name="lon"></span>
+
+
+            <div id="gmap1"></div>
+            <!-- REFERENCES -->
+
+            <span id='lat1' runat="server" name="lat1"></span>
+
+            <span id='lon1' name="lon1"></span>
+
+
+
+        </center>
+       
+
+        <div class="form-group">
+            <input id="btnSubmit" type="button" value="Create" class="btn btn-primary" onclick="submitlocation()" />
+        </div>
+
     </div>
 </div>
+
+
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
+
+
 

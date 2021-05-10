@@ -17,6 +17,7 @@ namespace WebApplication1.Data
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Driver> DriverInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder

@@ -17,11 +17,13 @@ namespace WebApplication1.Controllers
     {
         private readonly IBlogsRepository _blogsRepo;
         private readonly IConfiguration _config;
+        private readonly IPubSubRepository _pubSubRepo;
 
-        public BlogsController(IBlogsRepository blogsRepo, IConfiguration config)
+        public BlogsController(IBlogsRepository blogsRepo, IConfiguration config, IPubSubRepository pubSubRepository)
         {
             _config = config;
             _blogsRepo = blogsRepo;
+            _pubSubRepo = pubSubRepository;
         }
         public IActionResult Index()
         {
@@ -54,13 +56,16 @@ namespace WebApplication1.Controllers
 
                 _blogsRepo.AddBlog(b);
 
+                //string emailRecipient = HttpContext.User.Identity.Name;
+                //_pubSubRepo.PublishMessage(b, emailRecipient, "Demo");
+
                 TempData["message"] = $"Blog {b.Url} was created successfully";
 
                 return RedirectToAction("Index");
             }
-            catch 
+            catch (Exception e)
             {
-                TempData["error"] = $"Blog was not created successfully";
+                TempData["error"] = e;
                 return View(b);
             }
         }

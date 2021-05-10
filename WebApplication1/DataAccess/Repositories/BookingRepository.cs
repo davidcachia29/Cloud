@@ -11,9 +11,11 @@ namespace WebApplication1.DataAccess.Repositories
     public class BookingRepository : IBookingRepository
     {
         private readonly ApplicationDbContext _context;
-        public BookingRepository(ApplicationDbContext context)
+        private readonly IPubSubRepository _pubSubRepo;
+        public BookingRepository(ApplicationDbContext context, IPubSubRepository pubSubRepository)
         {
             _context = context;
+            _pubSubRepo = pubSubRepository;
         }
         public void AddBooking(Booking b)
         {
@@ -24,6 +26,18 @@ namespace WebApplication1.DataAccess.Repositories
         public Booking GetBooking(int id)
         {
             return _context.Bookings.SingleOrDefault(x => x.BookingID == id);
+            
+        }
+
+        public int GetBookingAmount()
+        {
+            return _context.Bookings.Count();
+
+        }
+
+        public void getBookingAmount()   
+        {            
+            GetBookingAmount();
         }
 
         public IQueryable<Booking> GetBookings()
@@ -31,9 +45,34 @@ namespace WebApplication1.DataAccess.Repositories
             return _context.Bookings;
         }
 
+        public void UpdateAcceptance(int id, bool accepted, string driverName, string driver, string plate, int passAmount)
+        {
+            var originalBlog = GetBooking(id);
+            originalBlog.accepted = accepted;
+
+            
+
+            if(originalBlog.Categories == "luxury")
+            {
+                _pubSubRepo.PullMessage(Category.luxury, driver, plate, passAmount);
+                
+            }
+            if(originalBlog.Categories == "Business")
+            {
+                _pubSubRepo.PullMessage(Category.buisness, driver, plate, passAmount);
+
+            }
+            if(originalBlog.Categories == "Business")
+            {
+                _pubSubRepo.PullMessage(Category.buisness, driver, plate, passAmount);
+
+            }
+            _context.SaveChanges();
+        }
+
         void IBookingRepository.GetBooking(int id)
         {
-            throw new NotImplementedException();
+            getBookingAmount();
         }
     }
 }
