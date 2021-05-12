@@ -49,10 +49,10 @@ namespace WebApplication1.DataAccess.Repositories
         {
             var originalBlog = GetBooking(id);
             originalBlog.accepted = accepted;
+            _context.SaveChanges();
 
-            
 
-            if(originalBlog.Categories == "luxury")
+            if (originalBlog.Categories == "luxury")
             {
                 _pubSubRepo.PullMessage(Category.luxury, driver, plate, passAmount);
                 
@@ -67,7 +67,7 @@ namespace WebApplication1.DataAccess.Repositories
                 _pubSubRepo.PullMessage(Category.buisness, driver, plate, passAmount);
 
             }
-            _context.SaveChanges();
+           
         }
 
         void IBookingRepository.GetBooking(int id)

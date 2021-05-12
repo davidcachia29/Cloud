@@ -89,9 +89,9 @@ namespace WebApplication1.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["error"] = $"Blog was not created successfully";
+                TempData["error"] = $"Blog already accepted";
 
             }
             return RedirectToAction("Index");

@@ -485,3 +485,8 @@ E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcorea
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Driver\AcceptedView.cshtml.g.cs
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Logging.Type.dll
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Logging.V2.dll
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Diagnostics.AspNetCore.dll
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Diagnostics.Common.dll
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Trace.V1.dll

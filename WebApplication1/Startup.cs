@@ -1,3 +1,4 @@
+using Google.Cloud.Diagnostics.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,13 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGoogleExceptionLogging(options =>
+            {
+                options.ProjectId = "davidcachiamsd";
+                options.ServiceName = "PFC2021MSD63A";
+                options.Version = "0.01";
+            });
+
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
@@ -41,7 +49,8 @@ namespace WebApplication1
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICacheRepository, CacheRepository>();
             services.AddScoped<IPubSubRepository, PubSubRepository>();
-            services.AddScoped<IDriverInfo, DriverInfoRepository>();            
+            services.AddScoped<IDriverInfo, DriverInfoRepository>();    
+            services.AddScoped<ILogRepository, LogRepository>();            
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -79,6 +88,7 @@ namespace WebApplication1
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseGoogleExceptionLogging();
             app.UseStaticFiles();
 
             app.UseRouting();

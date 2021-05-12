@@ -1,6 +1,7 @@
 ﻿using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Grpc.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
@@ -8,6 +9,7 @@ using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using WebApplication1.DataAccess.Interfaces;
 using WebApplication1.Models.Domain;
@@ -19,11 +21,15 @@ namespace WebApplication1.DataAccess.Repositories
     public class PubSubRepository : IPubSubRepository
     {
         string projectId;
+
+        
+        private readonly ILogRepository _cloudLogger;
        
 
-        public PubSubRepository(IConfiguration config)
+        public PubSubRepository(IConfiguration config, ILogRepository cloudLogger)
         {           
-            projectId = config.GetSection("AppSettings").GetSection("ProjectId").Value;            
+            projectId = config.GetSection("AppSettings").GetSection("ProjectId").Value;
+            _cloudLogger = cloudLogger;
         }
 
 
@@ -93,16 +99,23 @@ namespace WebApplication1.DataAccess.Repositories
                     text = msg.Message.Data.ToStringUtf8();
                 }
 
-                subscriberClient.Acknowledge(subscriptionName, new List<string>() { msg.AckId });
+                try
+                {
+                    //_cloudLogger.Log("Driver Tried To Accept An Order", Google.Cloud.Logging.Type.LogSeverity.Error);
+                    subscriberClient.Acknowledge(subscriptionName, new List<string>() { msg.AckId });
+                }
+                catch(Exception ex)
+                {                    
+                    
+                }
+               
 
                 
 
                 dynamic myDeserializedData = JsonConvert.DeserializeObject(text);
-                string email = myDeserializedData.PassangerName;
+                string email = myDeserializedData.Email;
                 string Name = myDeserializedData.Email;
                 string OrderId = myDeserializedData.Blog.BookingID;
-
-                
 
 
                 RestClient client = new RestClient();
@@ -112,13 +125,17 @@ namespace WebApplication1.DataAccess.Repositories
                 request.AddParameter("domain", "sandbox6e49ae25198143a28d7782ca77e4876a.mailgun.org", ParameterType.UrlSegment);
                 request.Resource = "{domain}/messages";
                 request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox6e49ae25198143a28d7782ca77e4876a.mailgun.org>");
-                request.AddParameter("to", Name);
-                request.AddParameter("subject", "Hello" + Name);
+                request.AddParameter("to", email);
+                request.AddParameter("subject", "Hello" + email);
                 request.AddParameter("text", "Your Booking With Id" + OrderId + " Is accepted");
-                request.AddParameter("text","Your order is accepted by " + driver + " With Plate " + plate + " and passanger amount of " + passAmount);
+                request.AddParameter("text", "Your order is accepted by " + driver + " With Plate " + plate + " and passanger amount of " + passAmount);
                 request.Method = Method.POST;
                 var response1 = client.Execute(request);
-                
+
+
+
+                PullAndCallFunction(email, Name, OrderId, driver, plate, passAmount);     
+
             }            
            
             catch (RpcException ex) when (ex.Status.StatusCode == StatusCode.Unavailable)
@@ -128,5 +145,17 @@ namespace WebApplication1.DataAccess.Repositories
 
             return text;
         }
+
+        public IActionResult PullAndCallFunction(string Email, string Name, string OrderId, string driver, string plate ,int passamount)
+        {
+            HttpClient client = new HttpClient();
+            Task<string> t = client.GetStringAsync("https://us-central1-davidcachiamsd.cloudfunctions.net/CloudFunctions" + "?Email=" + Name + "&OrderId=" + OrderId + "&driver=" + driver + "&plate=" + plate + "&passAmount=" + passamount);
+
+            t.Wait();
+
+            var result = t.Result;
+            return null;
+        }
+        
     }
 }
