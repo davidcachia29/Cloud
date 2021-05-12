@@ -200,7 +200,6 @@ E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcorea
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Create.cshtml.g.cs
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Roles\AllocateRole.cshtml.g.cs
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\Razor\Views\Bookings\Create.cshtml.g.cs
-E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.csprojAssemblyReference.cache
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Api.CommonProtos.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Api.Gax.Grpc.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Api.Gax.Grpc.GrpcCore.dll
@@ -490,3 +489,5 @@ E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcorea
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Diagnostics.AspNetCore.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Diagnostics.Common.dll
 E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\Google.Cloud.Trace.V1.dll
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\bin\Debug\netcoreapp3.1\davidcachiamsd-b50aaf676bce.json
+E:\Level 6\3\Year2\Cloud\Project1.1\PFCMSD63A\WebApplication1\obj\Debug\netcoreapp3.1\WebApplication1.csprojAssemblyReference.cache

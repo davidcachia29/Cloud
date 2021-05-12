@@ -21,9 +21,11 @@ namespace WebApplication1
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment host)
         {
             Configuration = configuration;
+            System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
+               host.ContentRootPath + @"\davidcachiamsd-b50aaf676bce.json");
         }
 
         public IConfiguration Configuration { get; }
@@ -36,6 +38,7 @@ namespace WebApplication1
                 options.ProjectId = "davidcachiamsd";
                 options.ServiceName = "PFC2021MSD63A";
                 options.Version = "0.01";
+                
             });
 
 
